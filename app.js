@@ -6,6 +6,11 @@ const app = express();
 // Setting up config.env file variables
 dotenv.config({ path: "./config/config.env" });
 
+// Importing all routes
+const jobs = require("./routes/jobs");
+
+app.use("/api/v1", jobs);
+
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(
