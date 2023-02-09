@@ -1,11 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/jobs", (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: "This route will display all jobs in the future.",
-  });
-});
+// importing Jobs controllers
+const { getJobs } = require("../controllers/jobs.controller");
+
+router.route("/jobs").get(getJobs);
 
 module.exports = router;
