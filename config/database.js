@@ -13,5 +13,6 @@ const connectDB = () => {
     .catch((error) => {
       console.log(`Error: ${error}`);
     });
+  mongoose.set("strictQuery", true);
 };
 module.exports = connectDB;
