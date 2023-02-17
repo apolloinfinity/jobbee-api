@@ -10,13 +10,8 @@ dotenv.config({ path: "./config/config.env" });
 // Connecting to Database
 connectDatabase();
 
-// creating middleware
-const middleware = (req, res, next) => {
-  console.log(`Hello from middleware`);
-  next();
-};
-
-app.use(middleware);
+// Setting up Body Parser
+app.use(express.json());
 
 // Importing all routes
 const jobs = require("./routes/jobs");
