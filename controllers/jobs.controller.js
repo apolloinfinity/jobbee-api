@@ -23,10 +23,10 @@ exports.newJob = async (req, res, next) => {
 
 // get a single job with id and slug => /api/v1/jobs/:id/:slug
 exports.getJob = async (req, res) => {
-  console.log(req.params);
-  // const { id } = req.params;
-  let job = await Job.findById(req.params.id);
-  if (!job) {
+  let job = await Job.find({
+    $and: [{ _id: req.params.id }, { slug: req.params.slug }],
+  });
+  if (!job || job.length === 0) {
     return res.status(404).json({
       success: false,
       message: "Job not found.",
