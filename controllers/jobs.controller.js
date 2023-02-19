@@ -21,12 +21,29 @@ exports.newJob = async (req, res, next) => {
   });
 };
 
+// get a single job with id and slug => /api/v1/jobs/:id/:slug
+exports.getJob = async (req, res) => {
+  console.log(req.params);
+  // const { id } = req.params;
+  let job = await Job.findById(req.params.id);
+  if (!job) {
+    return res.status(404).json({
+      success: false,
+      message: "Job not found.",
+    });
+  }
+
+  res.status(200).json({
+    success: true,
+    data: job,
+  });
+};
+
 // update job => /api/v1/jobs/:id
 exports.updateJob = async (req, res) => {
-  const { id } = req.params;
   const body = req.body;
 
-  let job = await Job.findById(id);
+  let job = await Job.findById(req.params.id);
 
   if (!job) {
     return res.status(404).json({
@@ -49,8 +66,7 @@ exports.updateJob = async (req, res) => {
 
 // delete a job => /api/v1/job/:id
 exports.deleteJob = async (req, res) => {
-  const { id } = req.params;
-  let job = await Job.findById(id);
+  let job = await Job.findById(req.params.id);
   if (!job) {
     return res.status(404).json({
       success: false,
