@@ -29,7 +29,7 @@ exports.updateJob = async (req, res) => {
   let job = await Job.findById(id);
 
   if (!job) {
-    res.status(404).json({
+    return res.status(404).json({
       success: false,
       message: "Job Not Found.",
     });
@@ -44,6 +44,24 @@ exports.updateJob = async (req, res) => {
     success: true,
     message: "Job is updated.",
     data: job,
+  });
+};
+
+// delete a job => /api/v1/job/:id
+exports.deleteJob = async (req, res) => {
+  const { id } = req.params;
+  let job = await Job.findById(id);
+  if (!job) {
+    return res.status(404).json({
+      success: false,
+      message: "Job not found.",
+    });
+  }
+
+  job = await Job.findByIdAndDelete(id);
+  res.status(200).json({
+    success: true,
+    message: "Job has been deleted.",
   });
 };
 
