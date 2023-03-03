@@ -1,4 +1,6 @@
 const Job = require("../models/jobs");
+
+const ErrorHandler = require("../utils/errorHandler");
 const geoCoder = require("../utils/geocoder");
 
 // Get all Jobs => /api/v1/jobs
@@ -40,16 +42,13 @@ exports.getJob = async (req, res) => {
 };
 
 // update job => /api/v1/jobs/:id
-exports.updateJob = async (req, res) => {
+exports.updateJob = async (req, res, next) => {
   const body = req.body;
 
   let job = await Job.findById(req.params.id);
 
   if (!job) {
-    return res.status(404).json({
-      success: false,
-      message: "Job Not Found.",
-    });
+    return next(new ErrorHandler("Job not found", 404));
   }
 
   job = await Job.findByIdAndUpdate(id, body, {
