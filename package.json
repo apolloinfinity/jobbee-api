@@ -6,7 +6,7 @@
   "scripts": {
     "node": "node app.js",
     "dev": "nodemon app",
-    "prod": "set NODE_ENV=production & nodemon app.js"
+    "prod": "export NODE_ENV=production && nodemon app.js"
   },
   "author": "Javier Ramirez Roa",
   "license": "ISC",
