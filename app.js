@@ -12,6 +12,7 @@ process.on("uncaughtException", (err) => {
 
 const connectDatabase = require("./config/database");
 const errorMiddleware = require("./middleware/errors");
+const ErrorHandler = require("./utils/errorHandler");
 
 // Setting up config.env file variables
 dotenv.config({ path: "./config/config.env" });
@@ -26,6 +27,11 @@ app.use(express.json());
 const jobs = require("./routes/jobs");
 
 app.use("/api/v1", jobs);
+
+app.all("*", (req, res, next) => {
+  next(new ErrorHandler(`${req.originalUrl} route not found`, 404));
+});
+
 // Middleware to handle errors
 app.use(errorMiddleware);
 
