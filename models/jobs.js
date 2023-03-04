@@ -70,7 +70,7 @@ const jobSchema = mongoose.Schema({
     type: String,
     required: [true, "Please add minumum education for this job."],
     enum: {
-      values: ["Bachelors", "Masters", "PhD"],
+      values: ["None", "Bachelors", "Masters", "PhD"],
       message: "Please select correct options for Education",
     },
   },
@@ -85,7 +85,7 @@ const jobSchema = mongoose.Schema({
       values: [
         "No Experience",
         "1 Year - 2 years",
-        "2 Year - 5 years",
+        "2 Years - 5 years",
         "5 Years+ ",
       ],
       message: "Please select correction options for Experience.",
